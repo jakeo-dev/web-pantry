@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import Head from "next/head";
 import Item from "../components/Item";
@@ -11,6 +11,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 // to-do
+// save pantry items after refreshing page
 // filter which colors of the pantry items show
 // share pantry
 
@@ -32,6 +33,15 @@ export default function Home() {
     link: "",
     color: "",
   });
+
+  interface Item {
+    // define the type of item
+    id: number;
+    name: string;
+    desc: string;
+    link: string;
+    color: string;
+  }
 
   const [items, setItems] = useState([
     {
@@ -56,6 +66,10 @@ export default function Home() {
       color: "banana",
     },
   ]);
+
+  useEffect(() => {
+    setItems(JSON.parse(localStorage.getItem("pantry") || "[]") as Item[]);
+  }, []);
 
   function isURL(s: string) {
     // https://stackoverflow.com/a/5717133
@@ -168,7 +182,7 @@ export default function Home() {
               <option value="blackberry">Blackberry</option>
             </select>
 
-            <div className="flex gap-2 mt-8">
+            <div className="flex gap-3 mt-8">
               <button
                 type="submit"
                 className="md:text-lg text-gray-100 border-2 bg-gray-500 hover:bg-gray-600 active:bg-gray-700 border-transparent rounded-md text-left px-3 py-2 transition-all"
@@ -182,7 +196,7 @@ export default function Home() {
                   }
 
                   if (nameInput == "" || linkInput == "") {
-                    alert("Enter all fields before adding this item");
+                    alert("Enter a name and URL before adding this item");
                   } else if (!isURL(tempLinkInp)) {
                     alert("Enter a valid URL");
                   } else {
@@ -200,6 +214,8 @@ export default function Home() {
                     setColorInput("blueberry");
                     setItemId(itemId + 1);
                     setAddModalVis("fadeIn");
+
+                    localStorage.setItem("pantry", JSON.stringify(items));
                   }
                   e.preventDefault();
                 }}
@@ -301,7 +317,7 @@ export default function Home() {
               <option value="blackberry">Blackberry</option>
             </select>
 
-            <div className="flex gap-2 mt-8">
+            <div className="flex gap-3 mt-8">
               <button
                 type="submit"
                 className="md:text-lg text-gray-100 border-2 bg-gray-500 hover:bg-gray-600 active:bg-gray-700 border-transparent rounded-md text-left px-3 py-2 transition-all"
@@ -315,7 +331,7 @@ export default function Home() {
                   }
 
                   if (nameInput == "" || linkInput == "") {
-                    alert("Enter all fields before adding this item");
+                    alert("Enter a name and URL before adding this item");
                   } else if (!isURL(tempLinkInp)) {
                     alert("Enter a valid URL");
                   } else {
@@ -328,6 +344,8 @@ export default function Home() {
                     setLinkInput("");
                     setColorInput("blueberry");
                     setEditModalVis("fadeIn");
+
+                    localStorage.setItem("pantry", JSON.stringify(items));
                   }
                   e.preventDefault();
                 }}
@@ -353,7 +371,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="max-w-[76rem] mx-auto my-16">
+      <div className="max-w-[76rem] mx-auto mt-16 mb-24">
         <h1 className="text-5xl font-black bg-gradient-to-r from-gray-600 to-gray-700 text-transparent bg-clip-text ml-8 mb-6">
           Web Pantry
         </h1>
@@ -361,7 +379,7 @@ export default function Home() {
 
         <div className="bg-[#795548] border-8 border-[#5d4037] shadow-md rounded-[2.5rem] px-8 py-12 md:px-16 md:py-20">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-end">
-            {items.map((item) => (
+            {items.map((item: Item) => (
               <Item
                 id={item.id}
                 name={item.name}
@@ -379,8 +397,12 @@ export default function Home() {
                 }}
                 onTrash={() => {
                   if (confirm("Delete " + item.name + "?")) {
-                    const updatedItems = items.filter((i) => i.id !== item.id); // Filter out the item to be deleted
+                    const updatedItems = items.filter(
+                      (i: Item) => i.id !== item.id
+                    ); // Filter out the item to be deleted
                     setItems(updatedItems);
+
+                    localStorage.setItem("pantry", JSON.stringify(updatedItems));
                   }
                 }}
               />

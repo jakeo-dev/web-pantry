@@ -1,12 +1,16 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
-import { Lexend } from "next/font/google";
+import { Lexend, Cutive } from "next/font/google";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 config.autoAddCss = false;
 import { Analytics } from "@vercel/analytics/react";
 
 const lexend = Lexend({ subsets: ["latin"] });
+const cutive = Cutive({
+  weight: "400",
+  subsets: ["latin"],
+});
 
 export default function App({ Component, pageProps }: AppProps) {
   return (

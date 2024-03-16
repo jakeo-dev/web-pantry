@@ -11,7 +11,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 // to-do
-// some links break the website, like this one: https://amp-theguardian-com.cdn.ampproject.org/v/s/amp.theguardian.com/science/2024/mar/03/can-you-solve-it-the-word-game-at-the-cutting-edge-of-computer-science?amp_gsa=1&amp_js_v=a9&usqp=mq331AQGsAEggAID#amp_tf=De%20%251%24s&aoh=17097351360851&csi=0&referrer=https%3A%2F%2Fwww.google.com&ampshare=https%3A%2F%2Fwww.theguardian.com%2Fscience%2F2024%2Fmar%2F03%2Fcan-you-solve-it-the-word-game-at-the-cutting-edge-of-computer-science
 // filter which colors of the pantry items show
 // share pantry
 // re-arrange items in pantry
@@ -88,6 +87,7 @@ export default function Home() {
 
   useEffect(() => {
     setItems(JSON.parse(localStorage.getItem("pantry") || "[]") as Item[]);
+    setViewType((Number(localStorage.getItem("viewType")) || 0) as number);
   }, []);
 
   function isURL(s: string) {
@@ -125,8 +125,13 @@ export default function Home() {
           </h1>
           <button
             onClick={() => {
-              if (viewType == 0) setViewType(1);
-              else if (viewType == 1) setViewType(0);
+              if (viewType == 0) {
+                setViewType(1);
+                localStorage.setItem("viewType", "1");
+              } else if (viewType == 1) {
+                setViewType(0);
+                localStorage.setItem("viewType", "0");
+              }
             }}
             className="md:text-lg hover:text-gray-700 hover:underline px-4 ml-auto transition-all"
           >

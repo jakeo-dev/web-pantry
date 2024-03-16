@@ -2,16 +2,18 @@ import { useState, useEffect } from "react";
 
 import Head from "next/head";
 import Item from "../components/Item";
+import ColorToggle from "../components/ColorToggle";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faAdd,
+  faChevronDown,
   faFloppyDisk,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 
 // to-do
-// filter which colors of the pantry items show
+// folders? tags?
 // share pantry
 // re-arrange items in pantry
 
@@ -43,6 +45,11 @@ export default function Home() {
   const [editModalVis, setEditModalVis] = useState("fadeIn");
 
   const [viewType, setViewType] = useState(0);
+
+  const [visItemsListVis, setVisItemsListVis] = useState(false);
+  colors[Math.floor(Math.random() * colors.length)];
+  const [visibles, setVisibles] = useState(colors.toString());
+  const [searchInput, setSearchInput] = useState("");
 
   const [selectedItem, setSelectedItem] = useState({
     id: -1,
@@ -123,27 +130,198 @@ export default function Home() {
           <h1 className="font-cutive text-3xl md:text-4xl font-bold text-gray-700">
             Web Pantry
           </h1>
-          <button
-            onClick={() => {
-              if (viewType == 0) {
-                setViewType(1);
-                localStorage.setItem("viewType", "1");
-              } else if (viewType == 1) {
-                setViewType(0);
-                localStorage.setItem("viewType", "0");
-              }
-            }}
-            className="md:text-lg hover:text-gray-700 hover:underline px-4 ml-auto transition-all"
-          >
-            View:
-            <span className="font-medium">
-              {viewType == 0 ? " Cards" : " Compact"}
-            </span>
-          </button>
-          {/* webmarks, webfruits, web fridge */}
+          <div className="flex md:text-lg gap-2 md:gap-4 ml-auto">
+            <button
+              onClick={() => {
+                if (viewType == 0) {
+                  setViewType(1);
+                  localStorage.setItem("viewType", "1");
+                } else if (viewType == 1) {
+                  setViewType(0);
+                  localStorage.setItem("viewType", "0");
+                }
+              }}
+              className="w-max hover:text-gray-700 hover:underline px-4 transition-all"
+            >
+              View:
+              <span className="font-medium">
+                {viewType == 0 ? " Cards" : " List"}
+              </span>
+            </button>
+
+            <div className="relative">
+              <button
+                className="w-max hover:text-gray-700 hover:underline"
+                onClick={() => {
+                  if (visItemsListVis) setVisItemsListVis(false);
+                  else if (!visItemsListVis) setVisItemsListVis(true);
+                }}
+              >
+                Filter items
+                <FontAwesomeIcon icon={faChevronDown} className="ml-2" />
+              </button>
+              <div
+                className={`absolute top-8 right-0 w-56 text-base bg-gray-200 rounded-md ${
+                  visItemsListVis ? "fadeOut" : "fadeIn"
+                } z-10 p-3`}
+              >
+                <input
+                  type="text"
+                  placeholder="Search items..."
+                  className="flex items-center w-full border-2 border-gray-300 bg-gray-200 hover:bg-gray-300 rounded-md px-4 py-2 mb-1 transition-all"
+                  value={searchInput}
+                  onInput={(e) => setSearchInput(e.currentTarget.value)}
+                  autoComplete="off"
+                />
+                <ColorToggle
+                  name="pomegranate"
+                  tailwindColor="red"
+                  visibles={visibles}
+                  onClick={() => {
+                    if (visibles.includes("pomegranate")) {
+                      let temp = visibles.replace("pomegranate", "");
+                      setVisibles(temp);
+                    } else {
+                      setVisibles(visibles + "pomegranate");
+                    }
+                  }}
+                />
+                <ColorToggle
+                  name="apricot"
+                  tailwindColor="orange"
+                  visibles={visibles}
+                  onClick={() => {
+                    if (visibles.includes("apricot")) {
+                      let temp = visibles.replace("apricot", "");
+                      setVisibles(temp);
+                    } else {
+                      setVisibles(visibles + "apricot");
+                    }
+                  }}
+                />
+                <ColorToggle
+                  name="banana"
+                  tailwindColor="yellow"
+                  visibles={visibles}
+                  onClick={() => {
+                    if (visibles.includes("banana")) {
+                      let temp = visibles.replace("banana", "");
+                      setVisibles(temp);
+                    } else {
+                      setVisibles(visibles + "banana");
+                    }
+                  }}
+                />
+                <ColorToggle
+                  name="lime"
+                  tailwindColor="lime"
+                  visibles={visibles}
+                  onClick={() => {
+                    if (visibles.includes("lime")) {
+                      let temp = visibles.replace("lime", "");
+                      setVisibles(temp);
+                    } else {
+                      setVisibles(visibles + "lime");
+                    }
+                  }}
+                />
+                <ColorToggle
+                  name="kiwi"
+                  tailwindColor="emerald"
+                  visibles={visibles}
+                  onClick={() => {
+                    if (visibles.includes("kiwi")) {
+                      let temp = visibles.replace("kiwi", "");
+                      setVisibles(temp);
+                    } else {
+                      setVisibles(visibles + "kiwi");
+                    }
+                  }}
+                />
+                <ColorToggle
+                  name="blueberry"
+                  tailwindColor="cyan"
+                  visibles={visibles}
+                  onClick={() => {
+                    if (visibles.includes("blueberry")) {
+                      let temp = visibles.replace("blueberry", "");
+                      setVisibles(temp);
+                    } else {
+                      setVisibles(visibles + "blueberry");
+                    }
+                  }}
+                />
+                <ColorToggle
+                  name="huckleberry"
+                  tailwindColor="blue"
+                  visibles={visibles}
+                  onClick={() => {
+                    if (visibles.includes("huckleberry")) {
+                      let temp = visibles.replace("huckleberry", "");
+                      setVisibles(temp);
+                    } else {
+                      setVisibles(visibles + "huckleberry");
+                    }
+                  }}
+                />
+                <ColorToggle
+                  name="plum"
+                  tailwindColor="indigo"
+                  visibles={visibles}
+                  onClick={() => {
+                    if (visibles.includes("plum")) {
+                      let temp = visibles.replace("plum", "");
+                      setVisibles(temp);
+                    } else {
+                      setVisibles(visibles + "plum");
+                    }
+                  }}
+                />
+                <ColorToggle
+                  name="grape"
+                  tailwindColor="purple"
+                  visibles={visibles}
+                  onClick={() => {
+                    if (visibles.includes("grape")) {
+                      let temp = visibles.replace("grape", "");
+                      setVisibles(temp);
+                    } else {
+                      setVisibles(visibles + "grape");
+                    }
+                  }}
+                />
+                <ColorToggle
+                  name="dragonfruit"
+                  tailwindColor="pink"
+                  visibles={visibles}
+                  onClick={() => {
+                    if (visibles.includes("dragonfruit")) {
+                      let temp = visibles.replace("dragonfruit", "");
+                      setVisibles(temp);
+                    } else {
+                      setVisibles(visibles + "dragonfruit");
+                    }
+                  }}
+                />
+                <ColorToggle
+                  name="blackberry"
+                  tailwindColor="slate"
+                  visibles={visibles}
+                  onClick={() => {
+                    if (visibles.includes("blackberry")) {
+                      let temp = visibles.replace("blackberry", "");
+                      setVisibles(temp);
+                    } else {
+                      setVisibles(visibles + "blackberry");
+                    }
+                  }}
+                />
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div className="bg-gray-600 shadow-md rounded-[2.5rem] p-6 md:p-12 lg:p-16">
+        <div className="bg-gray-600 shadow-md rounded-3xl md:rounded-[2.5rem] p-6 md:p-12 lg:p-16">
           {/* bg-[#795548] border-8 border-[#5d4037] shadow-md rounded-[2.5rem] p-6 md:p-12 lg:p-16 */}
           <div
             className={`${
@@ -159,7 +337,8 @@ export default function Home() {
                 desc={item.desc}
                 link={item.link}
                 color={item.color}
-                visible={true} // item.color == "lime"
+                visibles={visibles}
+                search={searchInput}
                 view={viewType}
                 onEdit={() => {
                   setEditModalVis("fadeOut");
@@ -246,7 +425,7 @@ export default function Home() {
               onInput={(e) => setNameInput(e.currentTarget.value)}
               autoComplete="off"
               required
-            ></input>
+            />
 
             <label className="text-sm md:text-base text-gray-500 px-2">
               Description
@@ -257,7 +436,7 @@ export default function Home() {
               value={descInput}
               onInput={(e) => setDescInput(e.currentTarget.value)}
               autoComplete="off"
-            ></input>
+            />
 
             <label className="text-sm md:text-base text-gray-500 px-2">
               URL
@@ -269,7 +448,7 @@ export default function Home() {
               onInput={(e) => setLinkInput(e.currentTarget.value)}
               autoComplete="off"
               required
-            ></input>
+            />
 
             <label className="text-sm md:text-base text-gray-500 px-2">
               Color
@@ -378,7 +557,7 @@ export default function Home() {
               onInput={(e) => setNameInput(e.currentTarget.value)}
               autoComplete="off"
               required
-            ></input>
+            />
 
             <label className="text-sm md:text-base text-gray-500 px-2">
               Description
@@ -389,7 +568,7 @@ export default function Home() {
               value={descInput}
               onInput={(e) => setDescInput(e.currentTarget.value)}
               autoComplete="off"
-            ></input>
+            />
 
             <label className="text-sm md:text-base text-gray-500 px-2">
               URL
@@ -401,7 +580,7 @@ export default function Home() {
               onInput={(e) => setLinkInput(e.currentTarget.value)}
               autoComplete="off"
               required
-            ></input>
+            />
 
             <label className="text-sm md:text-base text-gray-500 px-2">
               Color

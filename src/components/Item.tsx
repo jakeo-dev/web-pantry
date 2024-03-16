@@ -7,7 +7,8 @@ type ItemProps = {
   desc: string;
   link: string;
   color: string;
-  visible: boolean;
+  visibles: string;
+  search: string;
   view: number;
   onEdit: () => void;
   onTrash: () => void;
@@ -16,9 +17,21 @@ type ItemProps = {
 export default function Project(props: ItemProps) {
   return (
     <div
-      className={`${props.visible ? "" : "hidden"} ${
-        props.view == 0 ? " " : ""
-        /* md:border-b-4 border-b-[#5d4037] md:px-3 pb-6*/
+      className={`${props.visibles.includes(props.color) ? "" : "hidden"} ${
+        props.name
+          .replaceAll(/ /g, "")
+          .toLowerCase()
+          .includes(props.search.replaceAll(/ /g, "").toLowerCase()) ||
+        props.desc
+          .replaceAll(/ /g, "")
+          .toLowerCase()
+          .includes(props.search.replaceAll(/ /g, "").toLowerCase()) ||
+        props.link
+          .replaceAll(/ /g, "")
+          .toLowerCase()
+          .includes(props.search.replaceAll(/ /g, "").toLowerCase())
+          ? ""
+          : "hidden"
       }`}
     >
       <a
@@ -26,7 +39,7 @@ export default function Project(props: ItemProps) {
         className={`${
           props.view == 0
             ? "min-h-40 rounded-3xl px-6 pt-4 pb-12"
-            : "h-full rounded-xl px-5 py-3.5"
+            : "h-full rounded-xl px-5 py-3.5 pb-10"
         } item block relative ${
           props.color
         } text-white shadow-md active:shadow-none transition-all`}
@@ -46,20 +59,14 @@ export default function Project(props: ItemProps) {
         >
           {props.desc}
         </span>
-        <span
-          className={` text-white/70 text-xs break-all ${
-            props.view == 0
-              ? "absolute bottom-0 left-0 px-5 pb-3"
-              : "block pt-1"
-          } `}
-        >
+        <span className="text-white/70 text-xs break-all absolute bottom-0 left-0 px-5 pb-3">
           <FontAwesomeIcon icon={faLink} className="mr-1" />
-          {props.link.length < 80
+          {props.link.length < 65
             ? props.link.replace("http://", "").replace("https://", "")
             : props.link
                 .replace("http://", "")
                 .replace("https://", "")
-                .substring(0, 79) + "..."}
+                .substring(0, 64) + "..."}
         </span>
 
         <div className="optDiv md:opacity-0 flex absolute bottom-0 right-0 gap-3 pb-3 pr-5 transition-all">

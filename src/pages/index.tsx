@@ -11,7 +11,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 // to-do
-// save pantry items after refreshing page
 // filter which colors of the pantry items show
 // share pantry
 
@@ -43,8 +42,8 @@ export default function Home() {
     color: string;
   }
 
-  const [items, setItems] = useState([
-    {
+  const [items, setItems] = useState<Item[]>([
+    /* {
       id: 0,
       name: "How to Center in CSS",
       desc: "im very bad at aligning elements",
@@ -64,8 +63,8 @@ export default function Home() {
       desc: "check out all my projects and blog posts",
       link: "http://jakeo.dev",
       color: "banana",
-    },
-  ]);
+    }, */
+  ] as Item[]);
 
   useEffect(() => {
     setItems(JSON.parse(localStorage.getItem("pantry") || "[]") as Item[]);
@@ -103,6 +102,10 @@ export default function Home() {
         <meta
           property="og:image"
           content="https://bunnies.jakeo.dev/images/solid-gradient-blue-black-bunny.png"
+        />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Cutive&display=swap"
         />
       </Head>
 
@@ -372,12 +375,12 @@ export default function Home() {
       </div>
 
       <div className="max-w-[76rem] mx-auto mt-16 mb-24">
-        <h1 className="text-5xl font-black bg-gradient-to-r from-gray-600 to-gray-700 text-transparent bg-clip-text ml-8 mb-6">
+        <h1 className="font-cutive text-5xl font-bold text-gray-700 ml-8 mb-4">
           Web Pantry
         </h1>
         {/* webmarks, webfruits, web fridge */}
 
-        <div className="bg-[#795548] border-8 border-[#5d4037] shadow-md rounded-[2.5rem] px-8 py-12 md:px-16 md:py-20">
+        <div className="bg-[#795548] border-8 border-[#5d4037] shadow-md rounded-[2.5rem] px-8 py-12 md:px-16 md:pt-20">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-end">
             {items.map((item: Item) => (
               <Item
@@ -402,7 +405,10 @@ export default function Home() {
                     ); // Filter out the item to be deleted
                     setItems(updatedItems);
 
-                    localStorage.setItem("pantry", JSON.stringify(updatedItems));
+                    localStorage.setItem(
+                      "pantry",
+                      JSON.stringify(updatedItems)
+                    );
                   }
                 }}
               />

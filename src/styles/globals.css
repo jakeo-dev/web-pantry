@@ -59,3 +59,8 @@
 .item:hover > .optDiv {
   @apply opacity-100;
 }
+
+.font-cutive {
+  /* i cant figure out how to use 2 different fonts with next js...why is it so complicated */
+  font-family: Cutive, sans-serif;
+}

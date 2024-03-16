@@ -36,7 +36,7 @@ export default function Project(props: ItemProps) {
                 .substring(0, 79) + "..."}
         </span>
 
-        <div className="optDiv opacity-0 flex absolute bottom-0 right-0 gap-3 pb-3 pr-5 transition-all">
+        <div className="optDiv md:opacity-0 flex absolute bottom-0 right-0 gap-3 pb-3 pr-5 transition-all">
           <button
             onClick={(e) => {
               props.onEdit?.(); // literally no idea what ?.() is doing, apparently it "Calls props.onEdit if it exists"????? idk but ai is great

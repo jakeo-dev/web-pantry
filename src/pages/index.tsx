@@ -97,7 +97,7 @@ export default function Home() {
         />
         <title>Web Pantry</title>
         <meta property="og:title" content="Web Pantry" />
-        <meta property="og:description" content="description" />
+        <meta property="og:description" content="web pantry!!!!" />
         <meta name="theme-color" content="#83b5d3" />
         <meta
           property="og:image"
@@ -134,7 +134,7 @@ export default function Home() {
             </label>
             <input
               type="text"
-              className="text-lg block bg-gray-100 hover:bg-gray-200 border-2 border-gray-300 rounded-md w-full px-3 py-2 mb-4 transition-all"
+              className="md:text-lg block bg-gray-100 hover:bg-gray-200 border-2 border-gray-300 rounded-md w-full px-3 py-2 mb-4 transition-all"
               value={nameInput}
               onInput={(e) => setNameInput(e.currentTarget.value)}
               autoComplete="off"
@@ -146,7 +146,7 @@ export default function Home() {
             </label>
             <input
               type="text"
-              className="text-lg block bg-gray-100 hover:bg-gray-200 border-2 border-gray-300 rounded-md w-full px-3 py-2 mb-4 transition-all"
+              className="md:text-lg block bg-gray-100 hover:bg-gray-200 border-2 border-gray-300 rounded-md w-full px-3 py-2 mb-4 transition-all"
               value={descInput}
               onInput={(e) => setDescInput(e.currentTarget.value)}
               autoComplete="off"
@@ -157,7 +157,7 @@ export default function Home() {
             </label>
             <input
               type="url"
-              className="text-lg block bg-gray-100 hover:bg-gray-200 border-2 border-gray-300 rounded-md w-full px-3 py-2 mb-4 transition-all"
+              className="md:text-lg block bg-gray-100 hover:bg-gray-200 border-2 border-gray-300 rounded-md w-full px-3 py-2 mb-4 transition-all"
               value={linkInput}
               onInput={(e) => setLinkInput(e.currentTarget.value)}
               autoComplete="off"
@@ -170,7 +170,7 @@ export default function Home() {
             <select
               onChange={(e) => setColorInput(e.currentTarget.value)}
               value={colorInput}
-              className="text-lg block bg-gray-100 hover:bg-gray-200 border-2 border-gray-300 rounded-md w-full px-3 py-2 mb-4 transition-all"
+              className="md:text-lg block bg-gray-100 hover:bg-gray-200 border-2 border-gray-300 rounded-md w-full px-3 py-2 mb-4 transition-all"
             >
               <option value="pomegranate">Pomegranate</option>
               <option value="apricot">Apricot</option>
@@ -223,7 +223,7 @@ export default function Home() {
                   e.preventDefault();
                 }}
               >
-                <FontAwesomeIcon icon={faAdd} className="mr-[0.375rem]" />
+                <FontAwesomeIcon icon={faAdd} className="mr-1 md:mr-1.5" />
                 Add item
               </button>
 
@@ -269,7 +269,7 @@ export default function Home() {
             </label>
             <input
               type="text"
-              className="text-lg block bg-gray-100 hover:bg-gray-200 border-2 border-gray-300 rounded-md w-full px-3 py-2 mb-4 transition-all"
+              className="md:text-lg block bg-gray-100 hover:bg-gray-200 border-2 border-gray-300 rounded-md w-full px-3 py-2 mb-4 transition-all"
               value={nameInput}
               onInput={(e) => setNameInput(e.currentTarget.value)}
               autoComplete="off"
@@ -281,7 +281,7 @@ export default function Home() {
             </label>
             <input
               type="text"
-              className="text-lg block bg-gray-100 hover:bg-gray-200 border-2 border-gray-300 rounded-md w-full px-3 py-2 mb-4 transition-all"
+              className="md:text-lg block bg-gray-100 hover:bg-gray-200 border-2 border-gray-300 rounded-md w-full px-3 py-2 mb-4 transition-all"
               value={descInput}
               onInput={(e) => setDescInput(e.currentTarget.value)}
               autoComplete="off"
@@ -292,7 +292,7 @@ export default function Home() {
             </label>
             <input
               type="url"
-              className="text-lg block bg-gray-100 hover:bg-gray-200 border-2 border-gray-300 rounded-md w-full px-3 py-2 mb-4 transition-all"
+              className="md:text-lg block bg-gray-100 hover:bg-gray-200 border-2 border-gray-300 rounded-md w-full px-3 py-2 mb-4 transition-all"
               value={linkInput}
               onInput={(e) => setLinkInput(e.currentTarget.value)}
               autoComplete="off"
@@ -305,7 +305,7 @@ export default function Home() {
             <select
               onChange={(e) => setColorInput(e.currentTarget.value)}
               value={colorInput}
-              className="text-lg block bg-gray-100 hover:bg-gray-200 border-2 border-gray-300 rounded-md w-full px-3 py-2 mb-4 transition-all"
+              className="md:text-lg block bg-gray-100 hover:bg-gray-200 border-2 border-gray-300 rounded-md w-full px-3 py-2 mb-4 transition-all"
             >
               <option value="pomegranate">Pomegranate</option>
               <option value="apricot">Apricot</option>
@@ -353,7 +353,10 @@ export default function Home() {
                   e.preventDefault();
                 }}
               >
-                <FontAwesomeIcon icon={faFloppyDisk} className="mr-2" />
+                <FontAwesomeIcon
+                  icon={faFloppyDisk}
+                  className="mr-1.5 md:mr-2"
+                />
                 Save item
               </button>
 
@@ -374,13 +377,13 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="max-w-[76rem] mx-auto mt-16 mb-24">
-        <h1 className="font-cutive text-5xl font-bold text-gray-700 ml-8 mb-4">
+      <div className="max-w-[76rem] mx-auto my-16 md:my-20">
+        <h1 className="font-cutive text-[2.6rem] md:text-5xl font-bold text-gray-700 ml-8 mb-2 md:mb-4">
           Web Pantry
         </h1>
         {/* webmarks, webfruits, web fridge */}
 
-        <div className="bg-[#795548] border-8 border-[#5d4037] shadow-md rounded-[2.5rem] px-8 py-12 md:px-16 md:pt-20">
+        <div className="bg-[#795548] border-8 border-[#5d4037] shadow-md rounded-[2.5rem] px-4 py-8 md:px-12 md:pt-16 lg:px-16 lg:pt-20">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-end">
             {items.map((item: Item) => (
               <Item
@@ -414,7 +417,7 @@ export default function Home() {
               />
             ))}
 
-            <div className="md:border-b-4 border-b-[#5d4037] pb-6 md:mb-16 px-3">
+            <div className="md:border-b-4 border-b-[#5d4037] md:pb-6 md:mb-16 px-3">
               <button
                 className={`w-full h-40 flex items-center border-8 border-gray-100 hover:bg-gray-100 active:bg-gray-200 active:border-gray-200 text-gray-100 hover:text-gray-600 active:text-gray-600 rounded-3xl shadow-md active:shadow-none mx-auto transition-all`}
                 onClick={() => setAddModalVis("fadeOut")}

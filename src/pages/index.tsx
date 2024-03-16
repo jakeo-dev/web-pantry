@@ -91,17 +91,7 @@ export default function Home() {
   }, []);
 
   function isURL(s: string) {
-    // https://stackoverflow.com/a/43467144
-
-    let url;
-
-    try {
-      url = new URL(s);
-    } catch (_) {
-      return false;
-    }
-
-    return url.protocol === "http:" || url.protocol === "https:";
+    return /^((http:\/\/)|(https:\/\/)).+\..+/g.test(s);
   }
 
   return (

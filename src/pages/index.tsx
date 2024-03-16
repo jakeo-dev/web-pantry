@@ -11,19 +11,39 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 // to-do
+// some links break the website, like this one: https://amp-theguardian-com.cdn.ampproject.org/v/s/amp.theguardian.com/science/2024/mar/03/can-you-solve-it-the-word-game-at-the-cutting-edge-of-computer-science?amp_gsa=1&amp_js_v=a9&usqp=mq331AQGsAEggAID#amp_tf=De%20%251%24s&aoh=17097351360851&csi=0&referrer=https%3A%2F%2Fwww.google.com&ampshare=https%3A%2F%2Fwww.theguardian.com%2Fscience%2F2024%2Fmar%2F03%2Fcan-you-solve-it-the-word-game-at-the-cutting-edge-of-computer-science
 // filter which colors of the pantry items show
 // share pantry
+// re-arrange items in pantry
 
 export default function Home() {
   const [itemId, setItemId] = useState(3);
 
+  const colors = [
+    "pomegranate",
+    "apricot",
+    "banana",
+    "lime",
+    "kiwi",
+    "blueberry",
+    "huckleberry",
+    "plum",
+    "grape",
+    "dragonfruit",
+    "blackberry",
+  ];
+
   const [nameInput, setNameInput] = useState("");
   const [descInput, setDescInput] = useState("");
   const [linkInput, setLinkInput] = useState("");
-  const [colorInput, setColorInput] = useState("blueberry");
+  const [colorInput, setColorInput] = useState(
+    colors[Math.floor(Math.random() * colors.length)]
+  );
 
   const [addModalVis, setAddModalVis] = useState("fadeIn");
   const [editModalVis, setEditModalVis] = useState("fadeIn");
+
+  const [viewType, setViewType] = useState(0);
 
   const [selectedItem, setSelectedItem] = useState({
     id: -1,
@@ -71,18 +91,17 @@ export default function Home() {
   }, []);
 
   function isURL(s: string) {
-    // https://stackoverflow.com/a/5717133
+    // https://stackoverflow.com/a/43467144
 
-    var pattern = new RegExp(
-      "^(https?:\\/\\/)?" + // protocol
-        "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
-        "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
-        "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
-        "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
-        "(\\#[-a-z\\d_]*)?$",
-      "i"
-    ); // fragment locator
-    return !!pattern.test(s);
+    let url;
+
+    try {
+      url = new URL(s);
+    } catch (_) {
+      return false;
+    }
+
+    return url.protocol === "http:" || url.protocol === "https:";
   }
 
   return (
@@ -109,6 +128,100 @@ export default function Home() {
         />
       </Head>
 
+      <div className="max-w-[76rem] mx-auto my-16 md:my-20">
+        <div className="flex items-end px-6 md:px-8 mb-3 md:mb-4">
+          <h1 className="font-cutive text-3xl md:text-4xl font-bold text-gray-700">
+            Web Pantry
+          </h1>
+          <button
+            onClick={() => {
+              if (viewType == 0) setViewType(1);
+              else if (viewType == 1) setViewType(0);
+            }}
+            className="md:text-lg hover:text-gray-700 hover:underline px-4 ml-auto transition-all"
+          >
+            View:
+            <span className="font-medium">
+              {viewType == 0 ? " Cards" : " Compact"}
+            </span>
+          </button>
+          {/* webmarks, webfruits, web fridge */}
+        </div>
+
+        <div className="bg-gray-600 shadow-md rounded-[2.5rem] p-6 md:p-12 lg:p-16">
+          {/* bg-[#795548] border-8 border-[#5d4037] shadow-md rounded-[2.5rem] p-6 md:p-12 lg:p-16 */}
+          <div
+            className={`${
+              viewType == 0
+                ? "md:grid-cols-2 lg:grid-cols-3 md:gap-x-6 gap-y-6 items-end"
+                : "lg:grid-cols-2 md:gap-x-3 gap-y-3 items-stretch"
+            } grid grid-cols-1`}
+          >
+            {items.map((item: Item) => (
+              <Item
+                id={item.id}
+                name={item.name}
+                desc={item.desc}
+                link={item.link}
+                color={item.color}
+                visible={true} // item.color == "lime"
+                view={viewType}
+                onEdit={() => {
+                  setEditModalVis("fadeOut");
+                  setSelectedItem(item);
+                  setNameInput(item.name);
+                  setDescInput(item.desc);
+                  setLinkInput(item.link);
+                  setColorInput(item.color);
+                }}
+                onTrash={() => {
+                  if (confirm("Delete " + item.name + "?")) {
+                    const updatedItems = [...items];
+                    updatedItems.splice(items.indexOf(item), 1);
+                    setItems(updatedItems);
+
+                    localStorage.setItem(
+                      "pantry",
+                      JSON.stringify(updatedItems)
+                    );
+                  }
+                }}
+              />
+            ))}
+
+            <div
+              className={`${
+                viewType == 0
+                  ? ""
+                  : /* md:border-b-4 border-b-[#5d4037] px-3 md:pb-6 */
+                    ""
+              } `}
+            >
+              <button
+                className={`${
+                  viewType == 0
+                    ? "h-40 border-8 rounded-3xl"
+                    : "h-full border-4 rounded-xl py-3"
+                } w-full flex items-center border-gray-100 hover:bg-gray-100 active:bg-gray-200 active:border-gray-200 text-gray-100 hover:text-gray-600 active:text-gray-600 shadow-md active:shadow-none mx-auto transition-all`}
+                onClick={() => {
+                  setColorInput(
+                    colors[Math.floor(Math.random() * colors.length)]
+                  );
+                  setAddModalVis("fadeOut");
+                }}
+              >
+                <div className="flex items-center mx-auto">
+                  <FontAwesomeIcon
+                    icon={faAdd}
+                    className={viewType == 0 ? "text-5xl" : "text-3xl"}
+                  />
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div
         className={`${addModalVis} bg-black/40 flex justify-center items-center fixed top-0 left-0 z-30 w-full h-full overflow-auto`}
       >
@@ -120,7 +233,6 @@ export default function Home() {
                 setNameInput("");
                 setDescInput("");
                 setLinkInput("");
-                setColorInput("blueberry");
                 setAddModalVis("fadeIn");
               }}
             >
@@ -214,7 +326,6 @@ export default function Home() {
                     setNameInput("");
                     setDescInput("");
                     setLinkInput("");
-                    setColorInput("blueberry");
                     setItemId(itemId + 1);
                     setAddModalVis("fadeIn");
 
@@ -233,7 +344,6 @@ export default function Home() {
                   setNameInput("");
                   setDescInput("");
                   setLinkInput("");
-                  setColorInput("blueberry");
                   setAddModalVis("fadeIn");
                 }}
               >
@@ -255,7 +365,6 @@ export default function Home() {
                 setNameInput("");
                 setDescInput("");
                 setLinkInput("");
-                setColorInput("blueberry");
                 setEditModalVis("fadeIn");
               }}
             >
@@ -345,7 +454,6 @@ export default function Home() {
                     setNameInput("");
                     setDescInput("");
                     setLinkInput("");
-                    setColorInput("blueberry");
                     setEditModalVis("fadeIn");
 
                     localStorage.setItem("pantry", JSON.stringify(items));
@@ -366,7 +474,6 @@ export default function Home() {
                   setNameInput("");
                   setDescInput("");
                   setLinkInput("");
-                  setColorInput("blueberry");
                   setEditModalVis("fadeIn");
                 }}
               >
@@ -374,60 +481,6 @@ export default function Home() {
               </button>
             </div>
           </form>
-        </div>
-      </div>
-
-      <div className="max-w-[76rem] mx-auto my-16 md:my-20">
-        <h1 className="font-cutive text-[2.6rem] md:text-5xl font-bold text-gray-700 ml-8 mb-2 md:mb-4">
-          Web Pantry
-        </h1>
-        {/* webmarks, webfruits, web fridge */}
-
-        <div className="bg-[#795548] border-8 border-[#5d4037] shadow-md rounded-[2.5rem] px-4 py-8 md:px-12 md:pt-16 lg:px-16 lg:pt-20">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-end">
-            {items.map((item: Item) => (
-              <Item
-                id={item.id}
-                name={item.name}
-                desc={item.desc}
-                link={item.link}
-                color={item.color}
-                visible={true} // item.color == "lime"
-                onEdit={() => {
-                  setEditModalVis("fadeOut");
-                  setSelectedItem(item);
-                  setNameInput(item.name);
-                  setDescInput(item.desc);
-                  setLinkInput(item.link);
-                  setColorInput(item.color);
-                }}
-                onTrash={() => {
-                  if (confirm("Delete " + item.name + "?")) {
-                    const updatedItems = items.filter(
-                      (i: Item) => i.id !== item.id
-                    ); // Filter out the item to be deleted
-                    setItems(updatedItems);
-
-                    localStorage.setItem(
-                      "pantry",
-                      JSON.stringify(updatedItems)
-                    );
-                  }
-                }}
-              />
-            ))}
-
-            <div className="md:border-b-4 border-b-[#5d4037] md:pb-6 md:mb-16 px-3">
-              <button
-                className={`w-full h-40 flex items-center border-8 border-gray-100 hover:bg-gray-100 active:bg-gray-200 active:border-gray-200 text-gray-100 hover:text-gray-600 active:text-gray-600 rounded-3xl shadow-md active:shadow-none mx-auto transition-all`}
-                onClick={() => setAddModalVis("fadeOut")}
-              >
-                <div className="flex items-center mx-auto">
-                  <FontAwesomeIcon icon={faAdd} className="text-5xl" />
-                </div>
-              </button>
-            </div>
-          </div>
         </div>
       </div>
     </>

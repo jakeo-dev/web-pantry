@@ -38,9 +38,11 @@ export default function Project(props: ItemProps) {
         href={props.link}
         className={`${
           props.view == 0
-            ? "min-h-40 rounded-3xl px-6 pt-4 pb-12"
-            : "rounded-xl px-5 py-3.5 pb-10"
-        } ${props.color} item block relative h-full text-white shadow-md active:shadow-none transition-all`}
+            ? "min-h-40 rounded-3xl px-7 pt-5 pb-12"
+            : "rounded-xl px-5 py-3.5 pb-9"
+        } ${
+          props.color
+        } item block relative h-full text-white shadow-md active:shadow-none transition-all`}
         target="_blank"
       >
         <span
@@ -57,14 +59,15 @@ export default function Project(props: ItemProps) {
         >
           {props.desc}
         </span>
-        <span className="text-white/70 text-xs break-all absolute bottom-0 left-0 px-5 pb-3">
+        <span
+          className={`text-white/70 text-xs break-all absolute bottom-0 left-0 ${
+            props.view == 0
+              ? "px-7 pb-5"
+              : "px-5 pb-3.5"
+          } max-w-full truncate`}
+        >
           <FontAwesomeIcon icon={faLink} className="mr-1" />
-          {props.link.length < 65
-            ? props.link.replace("http://", "").replace("https://", "")
-            : props.link
-                .replace("http://", "")
-                .replace("https://", "")
-                .substring(0, 64) + "..."}
+          {props.link}
         </span>
 
         <div className="optDiv md:opacity-0 flex absolute bottom-0 right-0 gap-3 pb-3 pr-5 transition-all">

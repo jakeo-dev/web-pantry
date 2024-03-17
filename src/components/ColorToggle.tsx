@@ -19,10 +19,7 @@ export default function Project(props: ItemProps) {
         icon={props.visibles.includes(props.name) ? faCircleCheck : faCircle}
         className="mr-2"
       />
-      <span>
-        {/* text-${props.tailwindColor}-500 */}
-        {props.name.charAt(0).toUpperCase() + props.name.slice(1)}
-      </span>
+      <span>{props.name.charAt(0).toUpperCase() + props.name.slice(1)}</span>
     </button>
   );
 }

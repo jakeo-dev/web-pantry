@@ -32,17 +32,15 @@ export default function Project(props: ItemProps) {
           .includes(props.search.replaceAll(/ /g, "").toLowerCase())
           ? ""
           : "hidden"
-      }`}
+      } h-full`}
     >
       <a
         href={props.link}
         className={`${
           props.view == 0
             ? "min-h-40 rounded-3xl px-6 pt-4 pb-12"
-            : "h-full rounded-xl px-5 py-3.5 pb-10"
-        } item block relative ${
-          props.color
-        } text-white shadow-md active:shadow-none transition-all`}
+            : "rounded-xl px-5 py-3.5 pb-10"
+        } ${props.color} item block relative h-full text-white shadow-md active:shadow-none transition-all`}
         target="_blank"
       >
         <span

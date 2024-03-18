@@ -12,7 +12,7 @@ type ItemProps = {
 export default function Project(props: ItemProps) {
   return (
     <button
-      className="flex items-center w-full hover:text-gray-300 active:text-gray-400 text-white rounded-md py-2 transition-all"
+      className="flex items-center w-full text-gray-600 hover:text-gray-500 active:text-gray-400 rounded-md py-2 transition-all"
       onClick={props.onClick}
     >
       <FontAwesomeIcon

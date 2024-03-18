@@ -61,13 +61,11 @@ export default function Project(props: ItemProps) {
         </span>
         <span
           className={`text-white/70 text-xs break-all absolute bottom-0 left-0 ${
-            props.view == 0
-              ? "px-7 pb-5"
-              : "px-5 pb-3.5"
+            props.view == 0 ? "px-7 pb-5" : "px-5 pb-3.5"
           } max-w-full truncate`}
         >
           <FontAwesomeIcon icon={faLink} className="mr-1" />
-          {props.link}
+          {props.link.replace("http://", "").replace("https://", "")}
         </span>
 
         <div className="optDiv md:opacity-0 flex absolute bottom-0 right-0 gap-3 pb-3 pr-5 transition-all">

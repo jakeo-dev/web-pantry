@@ -126,13 +126,13 @@ export default function Home() {
       </Head>
 
       <div className="flex items-end px-6 md:px-8 mb-3 md:mb-4">
-        <h1 className="font-cutive text-3xl md:text-4xl font-bold text-gray-700">
+        <h1 className="font-cutive text-3xl md:text-4xl font-bold text-gray-800">
           Web Pantry
           {/* webmarks, webfruits, web fridge, webository */}
         </h1>
         <div className="flex md:hidden gap-2 md:gap-4 ml-auto">
           <button
-            className="w-max hover:text-gray-700 hover:underline"
+            className="w-max text-gray-700 hover:text-gray-600 hover:underline transition-all"
             onClick={() => {
               if (optionsVis) setOptionsVis(false);
               else if (!optionsVis) setOptionsVis(true);
@@ -145,7 +145,7 @@ export default function Home() {
       </div>
 
       <div className="flex text-white gap-8">
-        <div className="flex-1 bg-gray-600 shadow-md rounded-3xl md:rounded-[2.5rem] p-6 md:p-12 lg:p-16">
+        <div className="flex-1 bg-gray-200 shadow-md rounded-3xl md:rounded-[2.5rem] p-6 md:p-8 lg:p-12">
           <div
             className={`${
               viewType == 0
@@ -190,9 +190,9 @@ export default function Home() {
               <button
                 className={`${
                   viewType == 0
-                    ? "border-8 rounded-3xl"
-                    : "border-4 rounded-xl py-3"
-                } w-full h-32 md:h-full flex items-center border-gray-100 hover:bg-gray-100 active:bg-gray-200 active:border-gray-200 text-gray-100 hover:text-gray-600 active:text-gray-600 shadow-md active:shadow-none mx-auto transition-all`}
+                    ? "min-h-40 border-8 rounded-3xl"
+                    : "min-h-16 border-4 rounded-xl"
+                } w-full h-full flex items-center border-gray-400 hover:bg-gray-400 active:bg-gray-500 active:border-gray-500 text-gray-400 hover:text-white active:text-white shadow-md active:shadow-none mx-auto transition-all`}
                 onClick={() => {
                   setColorInput(
                     colors[Math.floor(Math.random() * colors.length)]
@@ -214,11 +214,11 @@ export default function Home() {
         <div
           className={`${
             optionsVis ? "block" : "hidden"
-          } md:block md:flex-[0.2] h-min absolute top-30 right-3 md:static border-2 border-gray-400 md:border-0 bg-gray-600 shadow-md rounded-3xl md:rounded-[2.5rem] p-6 md:p-12 lg:p-16`}
+          } md:block md:flex-[0.2] h-min absolute top-30 right-3 md:static border-2 border-gray-300 md:border-0 bg-gray-200 shadow-md rounded-3xl md:rounded-[2.5rem] p-6 md:p-8 lg:p-12`}
         >
-          <h6 className="text-sm text-gray-300 mb-1">View type</h6>
+          <h6 className="text-sm text-gray-500 mb-1">View type</h6>
           <button
-            className="w-full text-left border-2 border-gray-500 hover:bg-gray-500 active:bg-gray-400 active:border-gray-400 rounded-md px-4 py-2 transition-all"
+            className="w-full text-gray-900 text-left border-2 border-gray-300 hover:bg-gray-300 active:bg-gray-400 active:border-gray-400 rounded-md px-4 py-2 transition-all"
             onClick={() => {
               if (viewType == 0) {
                 setViewType(1);
@@ -232,12 +232,12 @@ export default function Home() {
             <span>{viewType == 0 ? " Cards" : " List"}</span>
           </button>
 
-          <h6 className="text-sm text-gray-300 mb-1 mt-8">Filter items</h6>
+          <h6 className="text-sm text-gray-500 mb-1 mt-8">Filter items</h6>
           <div>
             <input
               type="text"
               placeholder="Search items..."
-              className="flex items-center w-full border-2 border-gray-500 bg-gray-600 hover:bg-gray-500 focus:bg-gray-500 rounded-md px-4 py-2 mb-1 transition-all"
+              className="flex items-center w-full text-gray-900 border-2 border-gray-300 bg-transparent rounded-md px-4 py-2 mb-2 transition-all"
               value={searchInput}
               onInput={(e) => setSearchInput(e.currentTarget.value)}
               autoComplete="off"

@@ -18,8 +18,6 @@ import {
 // re-arrange items in pantry
 
 export default function Home() {
-  const [itemId, setItemId] = useState(3);
-
   const colors = [
     "pomegranate",
     "apricot",
@@ -28,7 +26,6 @@ export default function Home() {
     "kiwi",
     "blueberry",
     "huckleberry",
-    "plum",
     "grape",
     "dragonfruit",
     "blackberry",
@@ -44,7 +41,7 @@ export default function Home() {
   const [addModalVis, setAddModalVis] = useState("fadeIn");
   const [editModalVis, setEditModalVis] = useState("fadeIn");
 
-  const [viewType, setViewType] = useState(0);
+  const [viewType, setViewType] = useState(1);
 
   const [optionsVis, setOptionsVis] = useState(false);
   colors[Math.floor(Math.random() * colors.length)];
@@ -94,7 +91,7 @@ export default function Home() {
 
   useEffect(() => {
     setItems(JSON.parse(localStorage.getItem("pantry") || "[]") as Item[]);
-    setViewType((Number(localStorage.getItem("viewType")) || 0) as number);
+    setViewType(Number(localStorage.getItem("viewType") || "1") as number);
   }, []);
 
   function isURL(s: string) {
@@ -148,10 +145,8 @@ export default function Home() {
         <div className="flex-1 bg-gray-200 shadow-md rounded-3xl md:rounded-[2.5rem] p-6 md:p-8 lg:p-12">
           <div
             className={`${
-              viewType == 0
-                ? "lg:grid-cols-2 xl:grid-cols-3 md:gap-x-6 gap-y-6 items-end"
-                : "lg:grid-cols-2 md:gap-x-3 gap-y-3 items-stretch"
-            } grid grid-cols-1`}
+              viewType == 0 ? "" : "lg:grid-cols-2 md:gap-x-4 gap-y-4"
+            } grid grid-cols-1 items-stretch`}
           >
             {items.map((item: Item) => (
               <Item
@@ -186,27 +181,36 @@ export default function Home() {
               />
             ))}
 
-            <div className="h-full">
-              <button
-                className={`${
-                  viewType == 0
-                    ? "min-h-40 border-8 rounded-3xl"
-                    : "min-h-16 border-4 rounded-xl"
-                } w-full h-full flex items-center border-gray-400 hover:bg-gray-400 active:bg-gray-500 active:border-gray-500 text-gray-400 hover:text-white active:text-white shadow-md active:shadow-none mx-auto transition-all`}
-                onClick={() => {
-                  setColorInput(
-                    colors[Math.floor(Math.random() * colors.length)]
-                  );
-                  setAddModalVis("fadeOut");
-                }}
-              >
-                <div className="flex items-center mx-auto">
-                  <FontAwesomeIcon
-                    icon={faAdd}
-                    className={viewType == 0 ? "text-5xl" : "text-3xl"}
-                  />
-                </div>
-              </button>
+            <div className={viewType == 0 ? "mt-1.5" : ""}>
+              <div className="h-full">
+                <button
+                  className={`${
+                    viewType == 0
+                      ? "min-h-8 border-[2.5px] rounded-lg py-2"
+                      : "min-h-20 border-4 rounded-xl shadow-md active:shadow-none"
+                  } w-full h-full flex items-center border-gray-400 hover:bg-gray-400 active:bg-gray-500 active:border-gray-500 text-gray-400 hover:text-white active:text-white mx-auto transition-all`}
+                  onClick={() => {
+                    setColorInput(
+                      colors[Math.floor(Math.random() * colors.length)]
+                    );
+                    setAddModalVis("fadeOut");
+                  }}
+                >
+                  <div
+                    className={`flex items-center ${
+                      viewType == 0 ? "items-left ml-4" : "mx-auto"
+                    }`}
+                  >
+                    <FontAwesomeIcon
+                      icon={faAdd}
+                      className={viewType == 0 ? "text-xl mr-1.5" : "text-4xl"}
+                    />
+                    <span className={viewType == 0 ? "text-lg" : "hidden"}>
+                      {viewType == 0 ? "Add link" : ""}
+                    </span>
+                  </div>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -229,7 +233,7 @@ export default function Home() {
               }
             }}
           >
-            <span>{viewType == 0 ? " Cards" : " List"}</span>
+            <span>{viewType == 0 ? " List" : " Cards"}</span>
           </button>
 
           <h6 className="text-sm text-gray-500 mb-1 mt-8">Filter items</h6>
@@ -334,19 +338,6 @@ export default function Home() {
               }}
             />
             <ColorToggle
-              name="plum"
-              tailwindColor="indigo"
-              visibles={visibles}
-              onClick={() => {
-                if (visibles.includes("plum")) {
-                  let temp = visibles.replace("plum", "");
-                  setVisibles(temp);
-                } else {
-                  setVisibles(visibles + "plum");
-                }
-              }}
-            />
-            <ColorToggle
               name="grape"
               tailwindColor="purple"
               visibles={visibles}
@@ -406,7 +397,7 @@ export default function Home() {
               <FontAwesomeIcon icon={faXmark} />
             </button>
 
-            <h1 className="text-2xl font-medium mb-6">Add item</h1>
+            <h1 className="text-2xl font-medium mb-6">Add link</h1>
 
             <label className="text-sm md:text-base text-gray-500 px-2">
               Name
@@ -458,7 +449,6 @@ export default function Home() {
               <option value="kiwi">Kiwi</option>
               <option value="blueberry">Blueberry</option>
               <option value="huckleberry">Huckleberry</option>
-              <option value="plum">Plum</option>
               <option value="grape">Grape</option>
               <option value="dragonfruit">Dragonfruit</option>
               <option value="blackberry">Blackberry</option>
@@ -483,7 +473,7 @@ export default function Home() {
                     alert("Enter a valid URL");
                   } else {
                     const newItem = {
-                      id: itemId,
+                      id: Math.floor(Math.random() * 10000000000),
                       name: nameInput,
                       desc: descInput,
                       link: tempLinkInp,
@@ -493,7 +483,6 @@ export default function Home() {
                     setNameInput("");
                     setDescInput("");
                     setLinkInput("");
-                    setItemId(itemId + 1);
                     setAddModalVis("fadeIn");
 
                     localStorage.setItem("pantry", JSON.stringify(items));
@@ -502,7 +491,7 @@ export default function Home() {
                 }}
               >
                 <FontAwesomeIcon icon={faAdd} className="mr-1 md:mr-1.5" />
-                Add item
+                Add link
               </button>
 
               <button
@@ -538,7 +527,7 @@ export default function Home() {
               <FontAwesomeIcon icon={faXmark} />
             </button>
 
-            <h1 className="text-2xl font-medium mb-6">Edit item</h1>
+            <h1 className="text-2xl font-medium mb-6">Edit link</h1>
 
             <label className="text-sm md:text-base text-gray-500 px-2">
               Name
@@ -590,7 +579,6 @@ export default function Home() {
               <option value="kiwi">Kiwi</option>
               <option value="blueberry">Blueberry</option>
               <option value="huckleberry">Huckleberry</option>
-              <option value="plum">Plum</option>
               <option value="grape">Grape</option>
               <option value="dragonfruit">Dragonfruit</option>
               <option value="blackberry">Blackberry</option>
@@ -632,7 +620,7 @@ export default function Home() {
                   icon={faFloppyDisk}
                   className="mr-1.5 md:mr-2"
                 />
-                Save item
+                Save link
               </button>
 
               <button

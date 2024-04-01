@@ -31,10 +31,6 @@
     @apply bg-blue-500 hover:bg-blue-500/80 active:bg-blue-500/60;
   }
 
-  .plum {
-    @apply bg-indigo-500 hover:bg-indigo-500/80 active:bg-indigo-500/60;
-  }
-
   .grape {
     @apply bg-purple-500 hover:bg-purple-500/80 active:bg-purple-500/60;
   }
@@ -45,6 +41,46 @@
 
   .blackberry {
     @apply bg-slate-700 hover:bg-slate-700/80 active:bg-slate-700/60;
+  }
+
+  .pomegranate-text {
+    @apply text-red-600;
+  }
+
+  .apricot-text {
+    @apply text-orange-600;
+  }
+
+  .banana-text {
+    @apply text-yellow-600;
+  }
+
+  .lime-text {
+    @apply text-lime-600;
+  }
+
+  .kiwi-text {
+    @apply text-emerald-600;
+  }
+
+  .blueberry-text {
+    @apply text-cyan-600;
+  }
+
+  .huckleberry-text {
+    @apply text-blue-600;
+  }
+
+  .grape-text {
+    @apply text-purple-600;
+  }
+
+  .dragonfruit-text {
+    @apply text-pink-600;
+  }
+
+  .blackberry-text {
+    @apply text-slate-700 hover:text-slate-700/80 active:text-slate-700/60;
   }
 
   .fadeIn {

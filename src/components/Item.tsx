@@ -49,7 +49,7 @@ export default function Project(props: ItemProps) {
       >
         <span
           className={`${
-            props.view == 0 ? "text-lg pr-3" : "text-xl leading-6"
+            props.view == 0 ? "text-base pr-3" : "text-lg leading-6"
           } break-words font-medium`}
         >
           {props.name}
@@ -59,7 +59,7 @@ export default function Project(props: ItemProps) {
             props.view == 0
               ? "text-black/90 pr-3"
               : "block text-white/90 leading-6"
-          } ${props.desc == "" ? "hidden" : ""} break-words mt-1`}
+          } ${props.desc == "" ? "hidden" : ""} text-sm break-words mt-1`}
         >
           {props.desc}
         </span>
@@ -67,7 +67,7 @@ export default function Project(props: ItemProps) {
           className={`text-xs break-all ${
             props.view == 0
               ? "text-black/70"
-              : "text-white/70 max-w-full truncate px-6 pb-5 absolute bottom-0 left-0"
+              : "text-white/70 w-full truncate pl-6 pr-16 pb-5 absolute bottom-0 left-0"
           }`}
         >
           <FontAwesomeIcon icon={faLink} className="mr-1" />
@@ -92,7 +92,7 @@ export default function Project(props: ItemProps) {
           >
             <FontAwesomeIcon
               icon={faPen}
-              className={`text-xl ${
+              className={`${
                 props.view == 0
                   ? "text-black/30 hover:text-black/50 active:text-black/70"
                   : "text-white/50 hover:text-white/70 active:text-white/90"
@@ -107,7 +107,7 @@ export default function Project(props: ItemProps) {
           >
             <FontAwesomeIcon
               icon={faTrash}
-              className={`text-xl ${
+              className={`${
                 props.view == 0
                   ? "text-black/30 hover:text-black/50 active:text-black/70"
                   : "text-white/50 hover:text-white/70 active:text-white/90"

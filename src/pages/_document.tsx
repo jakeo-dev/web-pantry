@@ -4,7 +4,7 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head />
-      <body className="px-3 md:px-8 py-16 md:py-20 transition-all">
+      <body className="bg-gray-100">
         <Main />
         <NextScript />
       </body>
